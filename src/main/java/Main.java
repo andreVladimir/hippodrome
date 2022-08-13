@@ -1,7 +1,10 @@
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.*;
+
 
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
@@ -15,6 +18,8 @@ public class Main {
         );
         Hippodrome hippodrome = new Hippodrome(horses);
 
+        LOGGER.info("Начало скачек. Количество участников: {}", hippodrome.getHorses().size());
+
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
             watch(hippodrome);
@@ -22,6 +27,8 @@ public class Main {
         }
 
         String winnerName = hippodrome.getWinner().getName();
+
+        LOGGER.info("Окончание скачек. Победитель: {}", winnerName);
         System.out.println("Победил " + winnerName + "!");
     }
 
